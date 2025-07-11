@@ -9,7 +9,7 @@ from lxml import etree as ET
 from os import walk
 import itertools
 import gpxpy
-
+from datetime import timedelta
 
 def chunks(lst, n):
     for i in range(0, len(lst), n):
