@@ -603,6 +603,25 @@ class GoProFrameMaker(GoProFrameMakerParent):
             exit('Unable to save xml file: {}'.format(xmlFileName))
         return self.__parseMetadata(xmlFileName)
 
+    def _timestamp_to_seconds(token: str) -> float:
+        """
+        Accepts '0:02:11', '02:11.350', '131.35' … → seconds as float.
+        """
+        token = token.strip()
+
+        # H:MM:SS(.sss)   or   MM:SS(.sss)
+        if re.match(r"^\d{1,2}:\d{2}(:\d{2}(\.\d+)?)?$", token):
+            h, m, s = 0, 0, 0.0
+            parts = token.split(":")
+            if len(parts) == 3:
+                h, m, s = int(parts[0]), int(parts[1]), float(parts[2])
+            else:
+                m, s = int(parts[0]), float(parts[1])
+            return timedelta(hours=h, minutes=m, seconds=s).total_seconds()
+
+        # already numeric -> straight cast
+        return float(token)
+        
     def __parseMetadata(self, xmlFileName):
         root = ET.parse(xmlFileName).getroot()
         nsmap = root[0].nsmap
@@ -715,7 +734,7 @@ class GoProFrameMaker(GoProFrameMakerParent):
         if 'Duration' in videoFieldData:
             _tsm = videoFieldData['Duration'].strip().split(' ')
             if len(_tsm) > 0:
-                _t = float(_tsm[0])
+                _t = _timestamp_to_seconds(_tsm[0])
                 _sm = _tsm[-1]
                 if _sm == 's':
                     videoFieldData['Duration'] = "00:00:{:06.3F}".format(_t)
