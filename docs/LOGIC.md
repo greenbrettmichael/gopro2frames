@@ -253,20 +253,6 @@ Logo file must be:
 * square dimensions
 * >= 500 px height
 
-### 8A. Add nadir (equirectangular)
-
-User can set nadir overlay size and logo.
-
-To create the nadir, these steps can be followed:
-
-https://www.trekview.org/blog/2021/adding-a-custom-nadir-to-360-video-photo/
-
-_Example of nadir image height (equirectangular)_
-
-![](/docs/example-nadir-percentage-of-pano.jpeg)
-
-Note, nadir convert to equirectangular/resize step only needs to be converted to equirectangular and resized once (as all frames have same dimensions so output can be overlaid over each).
-
 ### 8B. Add watermark (HERO)
 
 User can set watermark overlay size and logo.

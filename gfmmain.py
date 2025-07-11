@@ -62,72 +62,6 @@ def ExiftoolInjectImagesMetadata(cmdMetaDataAll):
             t.join()
     return
 
-def createNadir(nadir, magick):
-    print(nadir, magick)
-    #magick trek-view-square-nadir.png -rotate 180 -strip trek-view-square-nadir-1.png
-    #magick trek-view-square-nadir-1.png -distort DePolar 0  trek-view-square-nadir-2.png
-    #magick trek-view-square-nadir-2.png -flip  trek-view-square-nadir-3.png
-    #magick trek-view-square-nadir-3.png -flop  trek-view-square-nadir-4.png
-    cmd = [
-        magick, nadir, "-rotate", "180", "-strip", nadir
-    ]
-    out = subprocess.run(cmd)
-    print(out)
-    cmd = [
-        magick, nadir, "-distort", "DePolar", "0", "-strip", nadir
-    ]
-    out = subprocess.run(cmd)
-    print(out)
-    cmd = [
-        magick, nadir, "-flip", "-strip", nadir
-    ]
-    out = subprocess.run(cmd)
-    print(out)
-    cmd = [
-        magick, nadir, "-flop", "-strip", nadir
-    ]
-    out = subprocess.run(cmd)
-    print(out)
-    return nadir
-
-def AddNadir(image, nadir, magick, imageData, equirectangular, height_percentage=15):
-    image_path = Path(image)
-    nadir_path = Path(nadir)
-
-    new_nadir_path = Path(str(image_path.parent)+os.sep+str(nadir_path.name))
-    new_nadir_path.write_bytes(nadir_path.read_bytes())
-
-    image = str(image_path.resolve())
-    nadir = str(new_nadir_path.resolve())
-    print('equirectangular', equirectangular)
-    imageWidth = imageData["Main:ImageWidth"]
-    imageHeight = imageData["Main:ImageHeight"]
-    if equirectangular == False:
-        imageWidth = "-1"
-    else:
-        nadir = createNadir(nadir, magick)
-        imageWidth = str(imageWidth)
-    imageHeight = int(imageHeight)*(height_percentage/100)
-    imageHeight = str(round(imageHeight))
-    print(imageWidth, imageHeight)
-    print("path for nadir: {}".format(nadir))
-    print("path for image: {}".format(image))
-    cmd = [
-        "ffmpeg", 
-        "-y", 
-        "-i", 
-        str("{}".format(image)), 
-        "-i", str("{}".format(nadir)), 
-        "-filter_complex", str("[1:v]scale="+imageWidth+":"+imageHeight+" [ovrl],[0:v][ovrl] overlay=(W-w):(H-h)"), 
-        str("{}".format(image))
-    ]
-    print(" ".join(cmd))
-    logging.info(" ".join(cmd))
-    fout = subprocess.run(cmd)
-    logging.info("Adding Nadir to {} is done.".format(image))
-    print("Adding Nadir to {} is done.".format(image))
-
-
 class GoProFrameMakerParent():
     def __init__(self, args):
         getcontext().prec = 6
@@ -987,11 +921,6 @@ class GoProFrameMaker(GoProFrameMakerParent):
 
         cmdMetaDataAll = []
         
-        if args["nadir_image"] != "":
-            for image in data['images']:
-                nadir_image = "{}{}{}".format(media_folder_full_path, os.sep, image)
-                AddNadir(nadir_image, args["nadir_image"], args["image_magick_path"], imageData[image], equirectangular, int(args["nadir_percentage"]))
-
         counter = 0
         for img in data['images']:
             if counter < photosLen - 1:

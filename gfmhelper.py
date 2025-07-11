@@ -441,8 +441,6 @@ class GoProFrameMakerHelper():
             'frame_rate',
             'time_warp',
             'quality',
-            'nadir_image',
-            'nadir_percentage',
             'max_sphere',
             'fusion_sphere',
             'fusion_params',
@@ -476,8 +474,6 @@ class GoProFrameMakerHelper():
                         'frame_rate': float(config['DEFAULT'].get('frame_rate', '0.5')),
                         'time_warp': config['DEFAULT'].get('time_warp', '5x'),
                         'quality': int(config['DEFAULT'].get('quality', '1')),
-                        'nadir_image': config['DEFAULT'].get('nadir_image'),
-                        'nadir_percentage': int(config['DEFAULT'].get('nadir_percentage')),
                         'max_sphere': config['DEFAULT'].get('max_sphere'),
                         'fusion_sphere': config['DEFAULT'].get('fusion_sphere'),
                         'fusion_sphere_params': config['DEFAULT'].get('fusion_params')
@@ -503,8 +499,6 @@ class GoProFrameMakerHelper():
             'frame_rate': 0.5,
             'quality': 1,
             'time_warp': None,
-            'nadir_image': '',
-            'nadir_percentage': '',
             'debug': '',
             'image_magick_path': '',
             'fusion_sphere_params': ''
@@ -630,28 +624,6 @@ class GoProFrameMakerHelper():
                 arguments["time_warp"] = timeWarp
         else:
             arguments["time_warp"] = None
-
-
-        #validating and checking if nadir image exists if present in the arument.
-        if (args.nadir_image is not None):
-            if(Path(args.nadir_image).is_file() == False):
-                errors.append("{} path does not exists at {}. Please make sure you used correct path!".format(args.nadir_image, str(Path(args.nadir_image).resolve())))
-                status = False
-            else:
-                arguments["nadir_image"] = Path(args.nadir_image)
-        else:
-            arguments["nadir_image"] = ''
-        
-        #validating nadir percentage.
-        if (args.nadir_percentage is not None):
-            nadir_percentage = int(args.nadir_percentage)
-            if((nadir_percentage >= 12) and (nadir_percentage <= 20)):
-                nadir_percentage = nadir_percentage
-            else:
-                nadir_percentage = 15
-            arguments["nadir_percentage"] = nadir_percentage
-        else:
-            arguments["nadir_percentage"] = 15
 
         if(args.image_magick_path is not None):
             if(Path(args.image_magick_path).is_file()):

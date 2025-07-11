@@ -93,10 +93,6 @@ debug=
 * `time_warp`: You NEED to use this if video was shot in timewarp mode, else telemetry will be inaccurate. The script does not support timewarp mode set to Auto (because it's impossible to determine the capture rate). Set the timewarp speed used when shooting in this field
 	* default: blank (not timewarp)
 	* options: `2x`, `5x`, `10x`, `15x`, `30x`
-* `logo_image`: Path to logofile used for nadir / watermark
-	* default: blank (do not add logo)
-* `logo_percentage`: overlay size of nadir / watermark between 8 - 20, in increments of 1.
-	* default: 12 (only used if `logo_image` set)
 * `debug`: enable debug mode.
 	* Default: `FALSE`
 	* options: `TRUE`,`FALSE`
@@ -241,24 +237,6 @@ debug=TRUE
 
 ```
 python3 gfm.py GS018422.mp4
-```
-
-##### Add a custom nadir
-
-```
-[DEFAULT]
-magick_path=
-ffmpeg_path=
-frame_rate= 1
-time_warp= 
-quality= 1
-logo_image= /Users/dgreenwood/logo/trekview.png
-logo_percentage= 12
-debug=TRUE
-```
-
-```
-python3 gfm.py -n /Users/dgreenwood/logo/trekview.png -p 12 GS018422.mp4
 ```
 
 ## License

@@ -28,10 +28,6 @@ if __name__ == '__main__':
         parser.add_argument("-r", "--frame-rate", type=int, help="Sets the frame rate (frames per second) for extraction (available=[0.5, 1, 2, 5]), default: 0.5.", default=0.5)
         parser.add_argument("-t", "--time-warp", type=str, help="Set time warp mode for gopro. available values are 2x, 5x, 10x, 15x, 30x")
         parser.add_argument("-q", "--quality", type=int, help="Sets the extracted quality between 2-6. 1 being the highest quality (but slower processing), default: 1. This is value used for ffmpeg -q:v flag. ", default=1)
-        
-        #nadir image & percentage
-        parser.add_argument("-n", "--nadir-image", type=str, help="Nadir image to use on the extracted images.")
-        parser.add_argument("-p", "--nadir-percentage", type=str, help="Nadir height percentage to use on the extracted images.")
 
         #max2spherebatch
         parser.add_argument("-m", "--max-sphere", type=str, help="Set the path for MAX2sphere binary.")
