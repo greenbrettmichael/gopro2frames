@@ -9,6 +9,25 @@ from os import walk
 import itertools
 import gpxpy
 
+def _norm_duration(dur: str) -> str:
+    """
+    Ensure HH:MM:SS.fff  (two-digit hour and microseconds) for strptime.
+    Accepts '0:02:11', '00:02:11', '00:02:11.350', etc.
+    """
+    dur = dur.strip()
+
+    # If the string has no fractional seconds, add “.000”
+    if '.' not in dur:
+        dur += '.000'
+
+    # If the hour is one digit prepend a 0
+    if dur.count(':') == 2:
+        h, m, s = dur.split(':')
+        if len(h) == 1:
+            dur = f'{h.zfill(2)}:{m}:{s}'
+
+    return dur
+
 class GoProFrameMakerHelper():
     def __init__(self):
         pass
@@ -330,7 +349,10 @@ class GoProFrameMakerHelper():
 
                 #_e_date = start_gps["GPSDateTime"].split(" ")[0]
                 zero_start = datetime.datetime.strptime("2022:1:1 00:00:00.000", "%Y:%m:%d %H:%M:%S.%f")
-                zero_duration = datetime.datetime.strptime("2022:1:1 {}".format(videoFieldData['Duration']), "%Y:%m:%d %H:%M:%S.%f")
+                safe_dur = _norm_duration(videoFieldData['Duration'])
+                zero_duration = datetime.datetime.strptime(
+                    f"2022:1:1 {safe_dur}", "%Y:%m:%d %H:%M:%S.%f"
+                )
 
                 start_time = datetime.datetime.strptime(start_gps["GPSDateTime"].replace("Z", ""), "%Y:%m:%d %H:%M:%S.%f")
                 
