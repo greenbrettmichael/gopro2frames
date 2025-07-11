@@ -765,7 +765,7 @@ class GoProFrameMaker(GoProFrameMakerParent):
                         start_time = end_time
                         diff = int((0.05)*1000.0)
                         end_time = end_time+datetime.timedelta(0, 0.05) 
-                new = pd.date_range(start=start_time, end=end_time, closed='left', freq="{}ms".format(diff))
+                new = pd.date_range(start=start_time, end=end_time, inclusive='left', freq="{}ms".format(diff))
                 icounter = 0
                 dlLen = 1 if len(start_gps["GPSData"]) < 1 else len(start_gps["GPSData"])
                 nlLen = 1 if len(new) < 1 else len(new)
@@ -802,7 +802,7 @@ class GoProFrameMaker(GoProFrameMakerParent):
                         start_time = end_time
                         diff = int((0.05)*1000.0)
                         end_time = end_time+datetime.timedelta(0, 0.05) 
-                new = pd.date_range(start=start_time, end=end_time, closed='left', freq="{}ms".format(diff))
+                new = pd.date_range(start=start_time, end=end_time, inclusive='left', freq="{}ms".format(diff))
                 icounter = 0
                 dlLen = 1 if len(start_gps["GPSData"]) < 1 else len(start_gps["GPSData"])
                 nlLen = 1 if len(new) < 1 else len(new)
