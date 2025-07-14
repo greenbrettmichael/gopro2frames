@@ -510,9 +510,9 @@ class GoProFrameMakerHelper():
     def validateArgs(args):
         status = True
         arguments = {
-            'current_directory': Path(),
             'predicted_camera': '',
             'input': '',
+            'output': '',
             'ffmpeg': '',
             'max_sphere': '',
             'fusion_sphere': '',
@@ -596,6 +596,20 @@ class GoProFrameMakerHelper():
                 elif(arguments['input'][1].is_file()):
                     errors.append("Input file {} does not exists.".format(args.input[1]))
                 status = False
+
+        #validating output directory
+        if(args.media_folder_full_path is not None):
+            arguments['media_folder_full_path'] = Path(args.media_folder_full_path)
+            if(arguments['media_folder_full_path'].is_dir() == False):
+                try:
+                    arguments['media_folder_full_path'].mkdir(parents=True, exist_ok=True)
+                    info.append("Output directory {} created successfully.".format(str(arguments['media_folder_full_path'].resolve())))
+                except Exception as e:
+                    errors.append("Output directory {} does not exists and could not be created. Please make sure you have write permissions.".format(str(arguments['media_folder_full_path'].resolve())))
+                    status = False
+        else:
+            errors.append("Output directory is not provided. Please provide output directory to save the frames.")
+            status = False
 
 
         #checking is a ffmpeg path is given, if not show the default one.

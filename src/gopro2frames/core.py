@@ -90,7 +90,7 @@ class GoProFrameMakerParent():
         except:
             exit('Unable to create main media directory {}'.format(media_folder_full_path))
         
-        args['log_folder'] = Path('{}{}{}'.format(str(args['current_directory'].resolve()), os.sep, 'logs'))
+        args['log_folder'] = Path('{}{}{}'.format(str(args['media_folder_full_path'].resolve()), os.sep, 'logs'))
         args['date_time_current'] = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
         self.__args = copy.deepcopy(args)
         self.__setLogging()
@@ -332,7 +332,6 @@ class GoProFrameMaker(GoProFrameMakerParent):
     def __init__(self, args):
         args["media_folder"] = os.path.basename(str(args['input'][0].resolve())).split(".")[0]
         args["file_type"] = os.path.basename(str(args['input'][0].resolve())).split(".")[-1]
-        args["media_folder_full_path"] = Path('{}{}{}'.format(str(args['current_directory'].resolve()), os.sep, args["media_folder"]))
         super().__init__(args)
 
     def getArguments(self):

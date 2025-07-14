@@ -38,6 +38,9 @@ gopro2frames [options] VIDEO_NAME.mp4
 
 ### Options
 
+* `media_folder_full_path`: where to save the frames
+	* default: `frames` (will create a folder called `frames` in the current directory)
+	* options: any valid path
 * `name`: sequence name
 	* default: none (you must set a value for this)
 	* options: `a-z`,`1-3`,`-`,`_` chars only
