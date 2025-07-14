@@ -1,6 +1,6 @@
 import configparser, subprocess, threading, itertools, argparse, platform, logging, datetime, fnmatch, shutil, pandas as pd, shlex, html, copy, time, json, math, csv, os, re
 from colorama import init, deinit, reinit, Fore, Back, Style
-from gfmhelper import GoProFrameMakerHelper
+from gopro2frames.helper import GoProFrameMakerHelper
 from geographiclib.geodesic import Geodesic
 from decimal import Decimal, getcontext
 from haversine import haversine, Unit

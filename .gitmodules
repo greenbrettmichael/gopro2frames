@@ -4,3 +4,9 @@
 [submodule "fusion2sphere"]
 	path = fusion2sphere
 	url = https://github.com/greenbrettmichael/fusion2sphere
+[submodule "src/gopro2frames/csrc/max2sphere"]
+	path = src/gopro2frames/csrc/max2sphere
+	url = https://github.com/greenbrettmichael/max2sphere.git
+[submodule "src/gopro2frames/csrc/fusion2sphere"]
+	path = src/gopro2frames/csrc/fusion2sphere
+	url = https://github.com/greenbrettmichael/fusion2sphere

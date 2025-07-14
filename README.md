@@ -17,6 +17,8 @@ You must have:
     * by default we bind to default path, so test by running `ffmpeg` in your cli
 * exiftool
     * by default we bind to default path, so test by running `exiftool` in your cli
+* imagemagick
+	* by default we bind to default path, so test by running `convert` in your cli
 
 Installed on you system.
 
@@ -25,54 +27,16 @@ You can then install the required Trek View components:
 This repo:
 
 ```
-$ git clone https://github.com/trek-view/gopro-frame-maker
-$ cd gopro-frame-maker
-$ git clone https://github.com/trek-view/max2sphere
-$ cd max2sphere
-$ make -f Makefile
-$ cd ..
-$ git clone https://github.com/trek-view/fusion2sphere
-$ cd fusion2sphere
-$ make -f Makefile
-$ cd ..
-```
-
-### Using a virtual environment
-
-To keep things clean on your system, run it in a virtual environment:
-
-```
-$ python3 -m venv env
-$ source env/bin/activate
-$ pip3 install -r requirements.txt
+pip install .
 ```
 
 ## Usage
 
-### Added support to use [config.ini](https://github.com/trek-view/gopro-frame-maker/blob/dev/config.ini) file 
-If using config.ini file only videos (1 video in case of max, and 2 videos in case of fusion) needs to pass as the arguments all other flags will be taken from config.ini
+```
+gopro2frames [options] VIDEO_NAME.mp4
+```
 
 ### Options
-
-```
-$ python3 gfm.py VIDEO_NAME.mp4
-```
-
-You can set all opitons in the [`config.ini`] file.
-
-```
-[DEFAULT]
-name=
-mode=
-magick_path=
-ffmpeg_path=
-frame_rate=
-time_warp=
-quality=
-logo_image=
-logo_percentage=
-debug=
-```
 
 * `name`: sequence name
 	* default: none (you must set a value for this)
@@ -146,98 +110,6 @@ The general processing pipeline of gopro-frame-maker is as follows;
 ### Test cases
 
 [A full library of sample files for each camera can be accessed here](https://guides.trekview.org/explorer/developer-docs/sequences/capture).
-
-#### Examples (MacOS)
-
-##### Extract at a frame rate of 1 FPS
-
-```
-[DEFAULT]
-magick_path=
-ffmpeg_path=
-frame_rate= 1
-time_warp=
-quality= 1
-logo_image=
-logo_percentage=
-debug=
-```
-
-```
-$ python3 gfm.py samples/GS018422.mp4
-```
-
-##### Run with debug mode
-
-```
-[DEFAULT]
-magick_path=
-ffmpeg_path=
-frame_rate= 1
-time_warp=
-quality= 1
-logo_image=
-logo_percentage=
-debug=TRUE
-```
-
-```
-$ python3 gfm.py GS018422.mp4
-```
-
-##### Extract frames at lowest quality
-
-```
-[DEFAULT]
-magick_path=
-ffmpeg_path=
-frame_rate= 1
-time_warp=
-quality= 6
-logo_image=
-logo_percentage=
-debug=TRUE
-```
-
-```
-$ python3 gfm.py GS018422.mp4
-```
-
-##### Extract from a timewarp video shot at 5x speed
-
-```
-[DEFAULT]
-magick_path=
-ffmpeg_path=
-frame_rate= 1
-time_warp= 5x
-quality= 1
-logo_image=
-logo_percentage=
-debug=TRUE
-```
-
-```
-$ python3 gfm.py -t 5x GS018422.mp4
-```
-
-##### Use a custom ffmpeg path
-
-```
-[DEFAULT]
-magick_path=
-ffmpeg_path= /Users/dgreenwood/bin/ffmpeg
-frame_rate= 1
-time_warp= 
-quality= 1
-logo_image=
-logo_percentage=
-debug=TRUE
-```
-
-```
-python3 gfm.py GS018422.mp4
-```
 
 ## License
 

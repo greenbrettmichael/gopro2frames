@@ -1,11 +1,9 @@
-import configparser, subprocess, threading, itertools, argparse, platform, logging, datetime, fnmatch, shutil, shlex, pandas as pd, html, copy, time, json, math, csv, os, re
-from colorama import init, deinit, reinit, Fore, Back, Style
+import configparser, itertools, platform, datetime, pandas as pd, html, time, math, os, re
 from geographiclib.geodesic import Geodesic
-from decimal import Decimal, getcontext
+from decimal import Decimal
 from haversine import haversine, Unit
 from pathlib import Path
 from lxml import etree as ET
-from os import walk
 import itertools
 import gpxpy
 

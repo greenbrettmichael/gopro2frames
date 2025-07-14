@@ -1,0 +1,34 @@
+[build-system]
+requires      = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.cmdclass]
+build_py = "gopro2frames.build.BuildCExecutables"    # dotted path inside src/
+
+[project]
+name            = "gopro2frames"
+version         = "0.4.0"
+description     = "Convert GoPro 360/Fusion videos to equirectangular frames"
+readme          = "README.md"
+requires-python = ">=3.9"
+license         = {text = "Apache-2.0"}
+authors         = [{name = "Brett-Michael Green"}]
+
+dependencies = [
+    "colorama>=0.4",
+    "pandas>=2.2",
+    "geographiclib",
+    "haversine",
+    "gpxpy"
+]
+
+[project.scripts]
+gopro2frames = "gopro2frames.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages    = ["gopro2frames"]               # ← only ship the Python code,
+                                             #    not every csrc sub-folder
+
+[tool.setuptools.package-data]
+gopro2frames = ["bin/*"]                     # compiled max2sphere & fusion2sphere
